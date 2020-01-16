@@ -1,5 +1,6 @@
 package com.example.shareapp.Model;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import androidx.lifecycle.ViewModel;
 
 public class LoginModel {
+    private Context mContext;
     private String email;
     private String password;
 

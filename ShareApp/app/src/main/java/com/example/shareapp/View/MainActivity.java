@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.shareapp.Model.LoginDataModel;
+import com.example.shareapp.Model.LoginFetchData;
 import com.example.shareapp.R;
 import com.example.shareapp.Model.LoginModel;
 import com.example.shareapp.ViewModel.LoginViewModel;
@@ -37,20 +39,25 @@ public class MainActivity extends AppCompatActivity {
                 String email= loginEmail.getText().toString();
                 String password= loginPassword.getText().toString();
                 loginViewModel.logindata(email, password);
-                int isSuccess= loginViewModel.IsValidData();
-                if (isSuccess == 1){
-                    Toast.makeText(MainActivity.this, "you must enter email "+isSuccess, Toast.LENGTH_SHORT).show();
-                } else if (isSuccess == 2){
-                    Toast.makeText(MainActivity.this, "enter valid email", Toast.LENGTH_SHORT).show();
-                } else if (isSuccess == 3){
-                    Toast.makeText(MainActivity.this, "password have must 6 char long", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent= new Intent(MainActivity.this, WelcomeActivity.class);
+                int valid= loginViewModel.IsValidData();
+                SaveData();
+                if (valid == 1) {
+                    Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    public void SaveData(){
+
+        LoginDataModel loginDataModel= new LoginDataModel();
+        loginDataModel.setUserEmail(loginEmail.getText().toString());
+        loginDataModel.setFinished(false);
+
+        LoginFetchData.getInstance(getApplicationContext()).getLoginDatabase().loginDOA().insert(loginDataModel);
+
+    }
 }
