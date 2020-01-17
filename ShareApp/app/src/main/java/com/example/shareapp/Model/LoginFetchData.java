@@ -13,7 +13,7 @@ public class LoginFetchData {
 
     private LoginFetchData (Context ctx){
         this.mContext= ctx;
-        loginDatabase= Room.databaseBuilder(ctx, LoginDatabase.class,"loginDatabase").build();
+        loginDatabase= Room.databaseBuilder(ctx, LoginDatabase.class,"loginDatabase").allowMainThreadQueries().build();
     }
 
     public static synchronized LoginFetchData getInstance(Context context){

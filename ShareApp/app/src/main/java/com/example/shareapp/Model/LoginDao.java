@@ -7,10 +7,9 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface LoginDOA {
-
+public interface LoginDao {
     @Query("SELECT * FROM loginTable")
-    List<LoginDataModel> getAllData();
+    LoginDataModel getAllData();
 
     @Insert
     void insert(LoginDataModel loginDataModel);

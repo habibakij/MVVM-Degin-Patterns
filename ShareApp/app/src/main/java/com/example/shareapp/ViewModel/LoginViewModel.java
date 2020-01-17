@@ -23,15 +23,13 @@ public class LoginViewModel extends ViewModel {
 
     public int IsValidData() {
         if (TextUtils.isEmpty(loginModel.getEmail())) {
-            Toast.makeText(mContext, "you must enter email", Toast.LENGTH_SHORT).show();
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(loginModel.getEmail()).matches()) {
-            Toast.makeText(mContext, "enter valid email", Toast.LENGTH_SHORT).show();
-        } else if (loginModel.getPassword().length() <= 6) {
-            Toast.makeText(mContext, "password have must 6 char long", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(mContext, "Login successfully", Toast.LENGTH_SHORT).show();
             return 1;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(loginModel.getEmail()).matches()) {
+            return 2;
+        } else if (loginModel.getPassword().length() <= 6) {
+            return 3;
+        } else {
+            return 4;
         }
-        return 0;
     }
 }

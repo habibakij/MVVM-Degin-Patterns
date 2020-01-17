@@ -6,5 +6,5 @@ import androidx.room.RoomDatabase;
 @Database(entities = {LoginDataModel.class}, version = 1)
 public abstract class LoginDatabase extends RoomDatabase {
 
-    public abstract LoginDOA loginDOA();
+    public abstract LoginDao loginDao();
 }

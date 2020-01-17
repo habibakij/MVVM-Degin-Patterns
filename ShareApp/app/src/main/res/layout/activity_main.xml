@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".View.MainActivity"
     android:weightSum="6"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
@@ -19,7 +19,6 @@
             android:layout_width="150sp"
             android:layout_height="150sp"
             android:src="@drawable/login_logo"/>
-
 
     </LinearLayout>
 

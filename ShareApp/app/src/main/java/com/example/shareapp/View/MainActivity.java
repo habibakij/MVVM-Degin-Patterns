@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         loginEmail= findViewById(R.id.login_email);
         loginPassword= findViewById(R.id.login_password);
 
-
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,10 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 int valid= loginViewModel.IsValidData();
                 SaveData();
                 if (valid == 1) {
+                    Toast.makeText(MainActivity.this, "you must enter email", Toast.LENGTH_SHORT).show();
+                } else if (valid == 2){
+                    Toast.makeText(MainActivity.this, "enter valid email", Toast.LENGTH_SHORT).show();
+                } else if (valid == 3){
+                    Toast.makeText(MainActivity.this, "password have must 6 char long", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -56,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         LoginDataModel loginDataModel= new LoginDataModel();
         loginDataModel.setUserEmail(loginEmail.getText().toString());
         loginDataModel.setFinished(false);
-
-        LoginFetchData.getInstance(getApplicationContext()).getLoginDatabase().loginDOA().insert(loginDataModel);
-
+        LoginFetchData.getInstance(getApplicationContext()).getLoginDatabase().loginDao().insert(loginDataModel);
     }
 }
