@@ -9,7 +9,7 @@ import java.util.List;
 @Dao
 public interface LoginDao {
     @Query("SELECT * FROM loginTable")
-    LoginDataModel getAllData();
+    List<LoginDataModel> getAllData();
 
     @Insert
     void insert(LoginDataModel loginDataModel);
