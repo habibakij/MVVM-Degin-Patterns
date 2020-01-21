@@ -8,9 +8,10 @@ import java.util.List;
 
 @Dao
 public interface LoginDao {
+
     @Query("SELECT * FROM loginTable")
-    List<LoginDataModel> getAllData();
+    List<LoginEntityData> getAllData();
 
     @Insert
-    void insert(LoginDataModel loginDataModel);
+    void insert(LoginEntityData loginEntityData);
 }

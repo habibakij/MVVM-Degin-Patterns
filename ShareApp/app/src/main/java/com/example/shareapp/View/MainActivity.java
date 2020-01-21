@@ -10,54 +10,62 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.shareapp.Model.LoginDataModel;
-import com.example.shareapp.Model.LoginFetchData;
+import com.example.shareapp.Model.LoginEntityData;
 import com.example.shareapp.R;
-import com.example.shareapp.Model.LoginModel;
 import com.example.shareapp.ViewModel.LoginViewModel;
+
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     private Button logIn;
     private EditText loginEmail, loginPassword;
     LoginViewModel loginViewModel;
+    private int count=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Init();
         loginViewModel= ViewModelProviders.of(this).get(LoginViewModel.class);
-
-        logIn= findViewById(R.id.login_button);
-        loginEmail= findViewById(R.id.login_email);
-        loginPassword= findViewById(R.id.login_password);
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email= loginEmail.getText().toString();
-                String password= loginPassword.getText().toString();
-                loginViewModel.logindata(email, password);
-                int valid= loginViewModel.IsValidData();
                 SaveData();
-                if (valid == 1) {
-                    Toast.makeText(MainActivity.this, "you must enter email", Toast.LENGTH_SHORT).show();
-                } else if (valid == 2){
-                    Toast.makeText(MainActivity.this, "enter valid email", Toast.LENGTH_SHORT).show();
-                } else if (valid == 3){
-                    Toast.makeText(MainActivity.this, "password have must 6 char long", Toast.LENGTH_SHORT).show();
-                } else {
+                if (count>0) {
                     Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
     }
 
-    public void SaveData(){
+    public void Init(){
+        logIn= findViewById(R.id.login_button);
+        loginEmail= findViewById(R.id.login_email);
+        loginPassword= findViewById(R.id.login_password);
+    }
 
-        LoginDataModel loginDataModel= new LoginDataModel();
-        loginDataModel.setUserEmail(loginEmail.getText().toString());
-        loginDataModel.setFinished(false);
-        LoginFetchData.getInstance(getApplicationContext()).getLoginDatabase().loginDao().insert(loginDataModel);
+    public void SaveData(){
+        String id= UUID.randomUUID().toString();
+        int check= loginViewModel.loginValidityCheck(loginEmail.getText().toString(), loginPassword.getText().toString());
+        if (check == 0){
+            Toast.makeText(this, "Must enter your email", Toast.LENGTH_SHORT).show();
+        }
+        if (check == 1){
+            Toast.makeText(this, "Enter valid email address", Toast.LENGTH_SHORT).show();
+        }
+        if (check == 2){
+            Toast.makeText(this, "password at least 6 char long", Toast.LENGTH_SHORT).show();
+        }
+        if (check == 3){
+            count++;
+            LoginEntityData loginEntityData= new LoginEntityData(id, loginEmail.getText().toString());
+            loginViewModel.insert(loginEntityData);
+            Toast.makeText(this, "You are able to create notification", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

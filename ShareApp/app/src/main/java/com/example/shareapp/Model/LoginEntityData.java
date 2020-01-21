@@ -1,26 +1,30 @@
 package com.example.shareapp.Model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "loginTable")
-public class LoginDataModel {
+public class LoginEntityData {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey()
+    @NonNull
+    private String id;
 
     @ColumnInfo(name = "userEmail")
     private String userEmail;
 
-    @ColumnInfo(name = "finished")
-    private boolean finished;
+    public LoginEntityData(@NonNull String id, String userEmail) {
+        this.id = id;
+        this.userEmail = userEmail;
+    }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -30,13 +34,5 @@ public class LoginDataModel {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
-    }
-
-    public boolean isFinished() {
-        return finished;
-    }
-
-    public void setFinished(boolean finished) {
-        this.finished = finished;
     }
 }
