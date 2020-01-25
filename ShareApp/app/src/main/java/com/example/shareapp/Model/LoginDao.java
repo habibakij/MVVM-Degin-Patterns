@@ -9,7 +9,7 @@ import java.util.List;
 @Dao
 public interface LoginDao {
 
-    @Query("SELECT * FROM loginTable")
+    @Query("SELECT * FROM " + LoginEntityData.LOGIN_TABLE_NAME)
     List<LoginEntityData> getAllData();
 
     @Insert

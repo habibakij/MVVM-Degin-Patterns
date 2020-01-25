@@ -1,14 +1,20 @@
 package com.example.shareapp.Model;
 
+import android.provider.BaseColumns;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "loginTable")
+@Entity(tableName = LoginEntityData.LOGIN_TABLE_NAME)
 public class LoginEntityData {
 
-    @PrimaryKey()
+    public static final String LOGIN_TABLE_NAME="loginTable";
+
+    //public static final String ID= BaseColumns._ID;
+
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private String id;
 
