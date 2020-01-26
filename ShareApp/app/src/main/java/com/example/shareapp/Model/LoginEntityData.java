@@ -14,7 +14,7 @@ public class LoginEntityData {
 
     //public static final String ID= BaseColumns._ID;
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     @NonNull
     private String id;
 

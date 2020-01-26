@@ -1,12 +1,14 @@
 package com.example.shareapp.Model.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapp.Model.LoginEntityData;
@@ -18,9 +20,8 @@ public class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.LoginViewHol
     private Context mContext;
     private List<LoginEntityData> loginEntityData;
 
-    public LoginAdapter(Context mContext, List<LoginEntityData> loginEntityData) {
+    public LoginAdapter(Context mContext) {
         this.mContext = mContext;
-        this.loginEntityData = loginEntityData;
     }
 
     @NonNull
@@ -32,13 +33,27 @@ public class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.LoginViewHol
 
     @Override
     public void onBindViewHolder(@NonNull LoginViewHolder holder, int position) {
-        LoginEntityData mLoginModel= loginEntityData.get(position);
-        holder.ShowEmail.setText(mLoginModel.getUserEmail());
+        if (loginEntityData!= null) {
+            LoginEntityData mLoginModel = loginEntityData.get(position);
+            holder.ShowEmail.setText(mLoginModel.getUserEmail());
+            Log.d("what happend",holder.ShowEmail.getText().toString());
+        }else {
+            holder.ShowEmail.setText("your database is empty");
+        }
     }
 
     @Override
     public int getItemCount() {
-        return loginEntityData.size();
+        if (loginEntityData!= null) {
+            return loginEntityData.size();
+        }else {
+            return 0;
+        }
+    }
+
+    public void setLoginData(List<LoginEntityData> loginData){
+        loginEntityData= loginData;
+        notifyDataSetChanged();
     }
 
     public class LoginViewHolder extends RecyclerView.ViewHolder {

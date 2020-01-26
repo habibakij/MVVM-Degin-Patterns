@@ -96,6 +96,7 @@
             android:layout_marginTop="50dp"
             android:layout_gravity="center"
             android:text="login"
+            android:onClick="LogIN"
             android:textAllCaps="false"
             android:textSize="20sp" />
 
