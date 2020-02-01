@@ -14,7 +14,11 @@
         <receiver
             android:name=".Broadcast.MyNorifiReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name=".ContentProvider.MyContentProvider"
@@ -22,7 +26,9 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".View.WelcomeActivity" />
+        <activity android:name=".View.WelcomeActivity"
+            android:parentActivityName=".View.MainActivity"/>
+
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -25,8 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        recyclerView= findViewById(R.id.recylerview);
-
+        /*recyclerView= findViewById(R.id.recylerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         loginAdapter= new LoginAdapter(this);
@@ -38,6 +37,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 loginAdapter.setLoginData(loginEntityData);
             }
         });
-        recyclerView.setAdapter(loginAdapter);
+        recyclerView.setAdapter(loginAdapter);*/
     }
 }

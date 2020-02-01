@@ -33,19 +33,23 @@ import static com.example.shareapp.Model.NotificationApp.channel;
 
 public class MainActivity extends AppCompatActivity {
     private Button logIn;
-    private String emailNotification;
     private EditText loginEmail, loginPassword;
     LoginViewModel loginViewModel;
     private int count = 0;
     NotificationManagerCompat manager;
+    private String currentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Init();
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         manager = NotificationManagerCompat.from(this);
+
+        DateFormat df1 = new SimpleDateFormat("yyyy/MM/dd"); // Format date
+        currentTime= df1.format(Calendar.getInstance().getTime());
     }
 
     public void LogIN(View view) {
@@ -53,8 +57,18 @@ public class MainActivity extends AppCompatActivity {
         if (count>0){
             Notifi();
             Intent intent= new Intent(this, WelcomeActivity.class);
+            loginEmail.setText("");loginPassword.setText("");
             startActivity(intent);
             finish();
+
+            /*PackageManager pm = MainActivity.this.getPackageManager();
+            ComponentName componentName = new ComponentName(
+                    MainActivity.this, MyNorifiReceiver.class);
+            pm.setComponentEnabledSetting(componentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP);*/
+
+
         }
     }
 
@@ -66,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void SaveData() {
         String id = UUID.randomUUID().toString();
-        int check = loginViewModel.loginValidityCheck(loginEmail.getText().toString(), loginPassword.getText().toString());
+        int check = loginViewModel.loginValidityCheck(loginEmail.getText().toString(),
+                loginPassword.getText().toString());
         if (check == 0) {
             Toast.makeText(this, "Must enter your email", Toast.LENGTH_SHORT).show();
         }
@@ -74,24 +89,24 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter valid email address", Toast.LENGTH_SHORT).show();
         }
         if (check == 2) {
-            Toast.makeText(this, "password at least 6 char long", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password at least 6 char long", Toast.LENGTH_SHORT).show();
         }
         if (check == 3) {
             count++;
-            LoginEntityData loginEntityData = new LoginEntityData(id, loginEmail.getText().toString());
+            LoginEntityData loginEntityData = new LoginEntityData(id, loginEmail.getText().toString(), currentTime);
             loginViewModel.insert(loginEntityData);
+            loginViewModel.InsertLocalDatabase(loginEmail.getText().toString().trim(), currentTime);
             Toast.makeText(this, "You are able to create notification", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void Notifi() {
-        DateFormat df1 = new SimpleDateFormat("yyyy/MM/dd"); // Format date
-        String currentTime = df1.format(Calendar.getInstance().getTime());
+        /*DateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
+        String currentTime = df1.format(Calendar.getInstance().getTime());*/
         Notification notification = new NotificationCompat.Builder(this, channel)
                 .setSmallIcon(R.drawable.ic_account)
-                .setContentTitle("Email:"+loginEmail.getText().toString())
-                .setContentText("Time:"+currentTime)
+                .setContentTitle("Email: "+loginEmail.getText().toString())
+                .setContentText("Time: "+currentTime)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();

@@ -1,6 +1,8 @@
 package com.example.shareapp.ViewModel;
 
 import android.app.Application;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -12,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import com.example.shareapp.Model.LoginDao;
 import com.example.shareapp.Model.LoginEntityData;
 import com.example.shareapp.Model.LoginModel;
+import com.example.shareapp.Model.SQLite.SQLiteHelper;
 
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class LoginViewModel extends AndroidViewModel {
     private LoginDatabase loginDatabase;
     private LiveData<List<LoginEntityData>> getAllLoginData;
     private LoginModel loginModel;
+    private SQLiteHelper sqLiteHelper;
+    private SQLiteDatabase sqLiteDatabase;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
@@ -50,7 +55,6 @@ public class LoginViewModel extends AndroidViewModel {
         }
     }
 
-
     public int loginValidityCheck(String email, String password) {
         loginModel = new LoginModel(email, password);
         if (TextUtils.isEmpty(loginModel.getEmail())) {
@@ -62,5 +66,15 @@ public class LoginViewModel extends AndroidViewModel {
         } else {
             return 3;
         }
+    }
+
+    public void InsertLocalDatabase(String email, String currentTime){
+        sqLiteHelper= new SQLiteHelper(getApplication());
+        sqLiteDatabase= sqLiteHelper.getWritableDatabase();
+        ContentValues contentValues= new ContentValues();
+        contentValues.put(SQLiteHelper.LOGIN_COLOUM_EMAIL, email);
+        contentValues.put(SQLiteHelper.LOGIN_COLOUM_CURRENT_TIME, currentTime);
+        sqLiteDatabase.insert(SQLiteHelper.LOGIN_CONTENT_PROVIDER_TABLE, null, contentValues);
+        sqLiteDatabase.close();
     }
 }

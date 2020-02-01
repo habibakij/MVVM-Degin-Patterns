@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.shareapp.Model.LoginDao;
 import com.example.shareapp.Model.LoginEntityData;
 
-@Database(entities = {LoginEntityData.class}, version = 1)
+@Database(entities = {LoginEntityData.class}, version = 1, exportSchema = false)
 public abstract class LoginDatabase extends RoomDatabase {
     public abstract LoginDao loginDao();
 
@@ -20,7 +20,7 @@ public abstract class LoginDatabase extends RoomDatabase {
             synchronized (LoginDatabase.class){
                 if (loginDatabaseInstance == null){
                     loginDatabaseInstance= Room.databaseBuilder(mContext.getApplicationContext(),
-                            LoginDatabase.class, "LoginNotification").build();
+                            LoginDatabase.class, "LoginNotification").fallbackToDestructiveMigration().build();
                 }
             }
         }

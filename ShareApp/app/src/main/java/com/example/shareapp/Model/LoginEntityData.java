@@ -9,10 +9,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = LoginEntityData.LOGIN_TABLE_NAME)
 public class LoginEntityData {
-
-    public static final String LOGIN_TABLE_NAME="loginTable";
-
-    //public static final String ID= BaseColumns._ID;
+    public static final String LOGIN_TABLE_NAME="loginNotificationTable";
 
     @PrimaryKey()
     @NonNull
@@ -21,9 +18,13 @@ public class LoginEntityData {
     @ColumnInfo(name = "userEmail")
     private String userEmail;
 
-    public LoginEntityData(@NonNull String id, String userEmail) {
+    @ColumnInfo(name = "currentTime")
+    private String currentTime;
+
+    public LoginEntityData(String id, String userEmail, String currentTime) {
         this.id = id;
         this.userEmail = userEmail;
+        this.currentTime = currentTime;
     }
 
     public String getId() {
@@ -40,5 +41,13 @@ public class LoginEntityData {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
     }
 }
