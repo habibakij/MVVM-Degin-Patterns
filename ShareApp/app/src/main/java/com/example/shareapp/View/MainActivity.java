@@ -12,6 +12,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -60,15 +61,6 @@ public class MainActivity extends AppCompatActivity {
             loginEmail.setText("");loginPassword.setText("");
             startActivity(intent);
             finish();
-
-            /*PackageManager pm = MainActivity.this.getPackageManager();
-            ComponentName componentName = new ComponentName(
-                    MainActivity.this, MyNorifiReceiver.class);
-            pm.setComponentEnabledSetting(componentName,
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                    PackageManager.DONT_KILL_APP);*/
-
-
         }
     }
 
@@ -103,12 +95,25 @@ public class MainActivity extends AppCompatActivity {
     public void Notifi() {
         /*DateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
         String currentTime = df1.format(Calendar.getInstance().getTime());*/
+        Intent actvityIntent= new Intent(this, MainActivity.class);
+        PendingIntent contentIntent= PendingIntent.getActivity(this, 0,
+                actvityIntent, 0);
+        Intent broadcastIntent= new Intent(this, MyNorifiReceiver.class);
+        broadcastIntent.putExtra("toastmessage", "Broadcast hit successfully");
+        PendingIntent actionIntent= PendingIntent.getBroadcast(this, 0, broadcastIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
         Notification notification = new NotificationCompat.Builder(this, channel)
                 .setSmallIcon(R.drawable.ic_account)
                 .setContentTitle("Email: "+loginEmail.getText().toString())
                 .setContentText("Time: "+currentTime)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setContentIntent(contentIntent)
+                .setColor(Color.BLUE)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .addAction(R.mipmap.ic_launcher, "Notifi", actionIntent)
                 .build();
         manager.notify(1, notification);
     }

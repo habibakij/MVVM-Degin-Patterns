@@ -24,26 +24,13 @@ import com.example.shareapp.ViewModel.LoginViewModel;
 import static com.example.shareapp.Model.NotificationApp.channel;
 
 public class MyNorifiReceiver extends BroadcastReceiver {
-    NotificationManagerCompat manager;
-    LoginEntityData loginEntityData;
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        manager= NotificationManagerCompat.from(context);
-        /*String uniquAction="android.intent.action.BOOT_COMPLETED";
-        Intent broadcastIntent= new Intent(uniquAction);*/
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())){
-
-            Notification notification = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.ic_account)
-                    .setContentTitle("Email: akijmia.cse@gmail.com")
-                    .setContentText("Time: 2/2/2020/12:00")
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                    .build();
-            manager.notify(1, notification);
-
-            Toast.makeText(context, "match action", Toast.LENGTH_SHORT).show();
+            String message= intent.getStringExtra("toastmessage");
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
         }
     }
 }
