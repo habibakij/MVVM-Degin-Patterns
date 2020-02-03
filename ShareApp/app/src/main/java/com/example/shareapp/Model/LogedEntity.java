@@ -1,15 +1,13 @@
 package com.example.shareapp.Model;
 
-import android.provider.BaseColumns;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = LoginEntityData.LOGIN_TABLE_NAME)
-public class LoginEntityData {
-    public static final String LOGIN_TABLE_NAME="loginNotificationTable";
+@Entity(tableName = LogedEntity.LOGIN_TABLE_NAME)
+public class LogedEntity {
+    public static final String LOGIN_TABLE_NAME="logedTable";
 
     @PrimaryKey()
     @NonNull
@@ -21,7 +19,7 @@ public class LoginEntityData {
     @ColumnInfo(name = "currentTime")
     private String currentTime;
 
-    public LoginEntityData(String id, String userEmail, String currentTime) {
+    public LogedEntity(String id, String userEmail, String currentTime) {
         this.id = id;
         this.userEmail = userEmail;
         this.currentTime = currentTime;

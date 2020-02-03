@@ -10,9 +10,9 @@ import java.util.List;
 @Dao
 public interface LoginDao {
 
-    @Query("SELECT * FROM " + LoginEntityData.LOGIN_TABLE_NAME)
-    LiveData<List<LoginEntityData>> getAllData();
+    @Query("SELECT * FROM " + LogedEntity.LOGIN_TABLE_NAME)
+    LiveData<List<LogedEntity>> getAllData();
 
     @Insert
-    void insert(LoginEntityData loginEntityData);
+    void insert(LogedEntity logedEntity);
 }

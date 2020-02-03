@@ -6,12 +6,8 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -20,14 +16,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.shareapp.Broadcast.MyNorifiReceiver;
-import com.example.shareapp.Model.LoginEntityData;
+import com.example.shareapp.Model.LogedEntity;
 import com.example.shareapp.R;
 import com.example.shareapp.ViewModel.LoginViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
 
 import static com.example.shareapp.Model.NotificationApp.channel;
@@ -85,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         }
         if (check == 3) {
             count++;
-            LoginEntityData loginEntityData = new LoginEntityData(id, loginEmail.getText().toString(), currentTime);
-            loginViewModel.insert(loginEntityData);
+            LogedEntity logedEntity = new LogedEntity(id, loginEmail.getText().toString(), currentTime);
+            loginViewModel.insert(logedEntity);
             loginViewModel.InsertLocalDatabase(loginEmail.getText().toString().trim(), currentTime);
             Toast.makeText(this, "You are able to create notification", Toast.LENGTH_SHORT).show();
         }

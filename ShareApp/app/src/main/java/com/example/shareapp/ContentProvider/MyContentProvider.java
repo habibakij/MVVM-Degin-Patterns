@@ -5,10 +5,8 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
-import com.example.shareapp.Model.LoginEntityData;
 import com.example.shareapp.Model.SQLite.SQLiteHelper;
 
 public class MyContentProvider extends ContentProvider {

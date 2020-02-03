@@ -12,7 +12,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.shareapp.Model.LoginDao;
-import com.example.shareapp.Model.LoginEntityData;
+import com.example.shareapp.Model.LogedEntity;
 import com.example.shareapp.Model.LoginModel;
 import com.example.shareapp.Model.SQLite.SQLiteHelper;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class LoginViewModel extends AndroidViewModel {
     private LoginDao loginDao;
     private LoginDatabase loginDatabase;
-    private LiveData<List<LoginEntityData>> getAllLoginData;
+    private LiveData<List<LogedEntity>> getAllLoginData;
     private LoginModel loginModel;
     private SQLiteHelper sqLiteHelper;
     private SQLiteDatabase sqLiteDatabase;
@@ -33,15 +33,15 @@ public class LoginViewModel extends AndroidViewModel {
         getAllLoginData= loginDao.getAllData();
     }
 
-    public void insert(LoginEntityData loginEntityData){
-        new LoginAsyntask(loginDao).execute(loginEntityData);
+    public void insert(LogedEntity logedEntity){
+        new LoginAsyntask(loginDao).execute(logedEntity);
     }
 
-    public LiveData<List<LoginEntityData>> getAllData(){
+    public LiveData<List<LogedEntity>> getAllData(){
         return getAllLoginData;
     }
 
-    public class LoginAsyntask extends AsyncTask<LoginEntityData, Void, Void> {
+    public class LoginAsyntask extends AsyncTask<LogedEntity, Void, Void> {
         LoginDao loginDao;
 
         public LoginAsyntask(LoginDao loginDao) {
@@ -49,8 +49,8 @@ public class LoginViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(LoginEntityData... loginEntityData) {
-            loginDao.insert(loginEntityData[0]);
+        protected Void doInBackground(LogedEntity... logedEntityData) {
+            loginDao.insert(logedEntityData[0]);
             return null;
         }
     }

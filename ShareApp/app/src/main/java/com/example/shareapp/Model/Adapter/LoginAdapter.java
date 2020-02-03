@@ -8,17 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shareapp.Model.LoginEntityData;
+import com.example.shareapp.Model.LogedEntity;
 import com.example.shareapp.R;
 
 import java.util.List;
 
 public class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.LoginViewHolder> {
     private Context mContext;
-    private List<LoginEntityData> loginEntityData;
+    private List<LogedEntity> logedEntityData;
 
     public LoginAdapter(Context mContext) {
         this.mContext = mContext;
@@ -33,8 +32,8 @@ public class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.LoginViewHol
 
     @Override
     public void onBindViewHolder(@NonNull LoginViewHolder holder, int position) {
-        if (loginEntityData!= null) {
-            LoginEntityData mLoginModel = loginEntityData.get(position);
+        if (logedEntityData != null) {
+            LogedEntity mLoginModel = logedEntityData.get(position);
             holder.ShowEmail.setText(mLoginModel.getUserEmail());
             Log.d("what happend",holder.ShowEmail.getText().toString());
         }else {
@@ -44,15 +43,15 @@ public class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.LoginViewHol
 
     @Override
     public int getItemCount() {
-        if (loginEntityData!= null) {
-            return loginEntityData.size();
+        if (logedEntityData != null) {
+            return logedEntityData.size();
         }else {
             return 0;
         }
     }
 
-    public void setLoginData(List<LoginEntityData> loginData){
-        loginEntityData= loginData;
+    public void setLoginData(List<LogedEntity> loginData){
+        logedEntityData = loginData;
         notifyDataSetChanged();
     }
 

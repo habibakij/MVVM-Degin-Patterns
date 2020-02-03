@@ -7,19 +7,12 @@
     tools:context=".View.WelcomeActivity"
     android:padding="8sp">
 
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recylerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <include layout="@layout/profile"/>
 
-    </androidx.recyclerview.widget.RecyclerView>-->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="log in successfully"
-        android:gravity="center"
-        android:textSize="20sp"/>
+    </com.google.android.material.navigation.NavigationView>
 
 </LinearLayout>

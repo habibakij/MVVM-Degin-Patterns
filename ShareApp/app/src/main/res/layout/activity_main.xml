@@ -38,11 +38,69 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/emailicon"
+                android:id="@+id/nameicon"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_person"/>
+
+            <EditText
+                android:id="@+id/login_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:hint="name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/userNameicon"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:tint="@color/colorWhite"
                 android:src="@drawable/ic_account"/>
+
+            <EditText
+                android:id="@+id/login_userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:hint="userName"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/emailicon"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_email"/>
 
             <EditText
                 android:id="@+id/login_email"

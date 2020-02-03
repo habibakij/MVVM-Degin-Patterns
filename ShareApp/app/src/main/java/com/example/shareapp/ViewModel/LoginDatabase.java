@@ -7,9 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.shareapp.Model.LoginDao;
-import com.example.shareapp.Model.LoginEntityData;
+import com.example.shareapp.Model.LogedEntity;
 
-@Database(entities = {LoginEntityData.class}, version = 1, exportSchema = false)
+@Database(entities = {LogedEntity.class}, version = 1, exportSchema = false)
 public abstract class LoginDatabase extends RoomDatabase {
     public abstract LoginDao loginDao();
 
