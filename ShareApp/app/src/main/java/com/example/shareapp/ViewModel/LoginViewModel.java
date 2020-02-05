@@ -11,9 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.shareapp.Model.LoginDao;
-import com.example.shareapp.Model.LogedEntity;
+import com.example.shareapp.Model.Room.LoginDao;
+import com.example.shareapp.Model.Room.LogedEntity;
 import com.example.shareapp.Model.LoginModel;
+import com.example.shareapp.Model.Room.SecondAppEntity;
 import com.example.shareapp.Model.SQLite.SQLiteHelper;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class LoginViewModel extends AndroidViewModel {
     private LoginDao loginDao;
     private LoginDatabase loginDatabase;
     private LiveData<List<LogedEntity>> getAllLoginData;
+    private LiveData<List<SecondAppEntity>> getAllSecondData;
+
     private LoginModel loginModel;
     private SQLiteHelper sqLiteHelper;
     private SQLiteDatabase sqLiteDatabase;
@@ -31,14 +34,23 @@ public class LoginViewModel extends AndroidViewModel {
         loginDatabase= LoginDatabase.getLoginDatabase(application);
         loginDao= loginDatabase.loginDao();
         getAllLoginData= loginDao.getAllData();
+        getAllSecondData= loginDao.getSecondAllData();
     }
 
     public void insert(LogedEntity logedEntity){
         new LoginAsyntask(loginDao).execute(logedEntity);
     }
 
+    public void secondAppInsert(SecondAppEntity secondAppEntity){
+        new SecondAppAsyntask(loginDao).execute(secondAppEntity);
+    }
+
     public LiveData<List<LogedEntity>> getAllData(){
         return getAllLoginData;
+    }
+
+    public LiveData<List<SecondAppEntity>> getSecondAllData(){
+        return getAllSecondData;
     }
 
     public class LoginAsyntask extends AsyncTask<LogedEntity, Void, Void> {
@@ -49,8 +61,22 @@ public class LoginViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(LogedEntity... logedEntityData) {
-            loginDao.insert(logedEntityData[0]);
+        protected Void doInBackground(LogedEntity... logedEntity) {
+            loginDao.insert(logedEntity[0]);
+            return null;
+        }
+    }
+
+    public class SecondAppAsyntask extends AsyncTask<SecondAppEntity, Void, Void>{
+
+        LoginDao loginDao;
+        public SecondAppAsyntask(LoginDao loginDao){
+            this.loginDao = loginDao;
+        }
+
+        @Override
+        protected Void doInBackground(SecondAppEntity... secondAppEntities) {
+            loginDao.secondAppInsert(secondAppEntities[0]);
             return null;
         }
     }

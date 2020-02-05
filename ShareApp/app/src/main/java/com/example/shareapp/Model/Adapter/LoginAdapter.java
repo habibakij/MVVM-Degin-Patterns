@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shareapp.Model.LogedEntity;
+import com.example.shareapp.Model.Room.LogedEntity;
 import com.example.shareapp.R;
 
 import java.util.List;

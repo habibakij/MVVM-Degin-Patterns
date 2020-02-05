@@ -9,14 +9,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <activity
+            android:name=".View.WelcomeActivity"
+            android:label="@string/title_activity_main2" />
 
         <receiver
             android:name=".Broadcast.MyNorifiReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
@@ -26,13 +30,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".View.WelcomeActivity"
-            android:parentActivityName=".View.MainActivity"/>
-
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

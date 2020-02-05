@@ -1,6 +1,7 @@
 package com.example.shareapp.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,7 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.shareapp.Broadcast.MyNorifiReceiver;
-import com.example.shareapp.Model.LogedEntity;
+import com.example.shareapp.Model.Room.LogedEntity;
+import com.example.shareapp.Model.Room.SecondAppEntity;
 import com.example.shareapp.R;
 import com.example.shareapp.ViewModel.LoginViewModel;
 
@@ -29,7 +31,7 @@ import static com.example.shareapp.Model.NotificationApp.channel;
 
 public class MainActivity extends AppCompatActivity {
     private Button logIn;
-    private EditText loginEmail, loginPassword;
+    private EditText loginName, loginUserName,loginEmail, loginPassword;
     LoginViewModel loginViewModel;
     private int count = 0;
     NotificationManagerCompat manager;
@@ -39,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("Home Activity");
 
         Init();
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
@@ -53,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
         if (count>0){
             Notifi();
             Intent intent= new Intent(this, WelcomeActivity.class);
-            loginEmail.setText("");loginPassword.setText("");
+            intent.putExtra("name",loginName.getText().toString());
+            intent.putExtra("userName",loginUserName.getText().toString());
+            intent.putExtra("email",loginEmail.getText().toString());
+            intent.putExtra("password",loginPassword.getText().toString());
+            loginName.setText("");loginUserName.setText("");loginEmail.setText("");loginPassword.setText("");
             startActivity(intent);
             finish();
         }
@@ -61,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void Init() {
         logIn = findViewById(R.id.login_button);
+        loginName= findViewById(R.id.login_name);
+        loginUserName= findViewById(R.id.login_userName);
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
     }
@@ -80,8 +92,13 @@ public class MainActivity extends AppCompatActivity {
         }
         if (check == 3) {
             count++;
-            LogedEntity logedEntity = new LogedEntity(id, loginEmail.getText().toString(), currentTime);
+            LogedEntity logedEntity = new LogedEntity(id, loginName.getText().toString(),
+                    loginUserName.getText().toString(), loginEmail.getText().toString());
+            SecondAppEntity secondAppEntity= new SecondAppEntity(id, loginEmail.getText().toString(), currentTime);
+
             loginViewModel.insert(logedEntity);
+            loginViewModel.secondAppInsert(secondAppEntity);
+
             loginViewModel.InsertLocalDatabase(loginEmail.getText().toString().trim(), currentTime);
             Toast.makeText(this, "You are able to create notification", Toast.LENGTH_SHORT).show();
         }
